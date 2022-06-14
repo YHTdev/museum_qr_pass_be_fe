@@ -21,7 +21,7 @@ const Galleries = () => {
           <div className="flex items-center">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-5 py-2 bg-yellow-500 rounded-lg shadow-lg text-slate-50">
+              className="px-5 py-2 text-sm bg-yellow-500 rounded-lg shadow-lg text-slate-50">
               Add Gallary
             </button>
             <button className="ml-4 ">
