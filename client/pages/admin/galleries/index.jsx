@@ -9,6 +9,7 @@ import Modal, {
   ModalBody,
   ModalTitle,
 } from "../../../components/Organisms/Modal";
+import CreateGallery from "../../../components/Organisms/Galleries/CreateGallery";
 
 const Galleries = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,7 +36,9 @@ const Galleries = () => {
 
         <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
           <ModalTitle>Add Gallery </ModalTitle>
-          <ModalBody></ModalBody>
+          <ModalBody>
+            <CreateGallery />
+          </ModalBody>
         </Modal>
       </AdminLayout>
     </>

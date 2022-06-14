@@ -45,7 +45,7 @@ export default function Modal({
               leave="ease-in duration-200"
               leaveFrom="opacity-100"
               leaveTo="opacity-0">
-              <Dialog.Overlay className="fixed inset-0 bg-slate-900 opacity-30" />
+              <Dialog.Overlay className="fixed inset-0 bg-slate-900/30 backdrop-blur-sm" />
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}
@@ -63,7 +63,7 @@ export default function Modal({
               leave="ease-in duration-200"
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95">
-              <div
+              <dialog
                 className={`${
                   className || ""
                 } inline-block relative w-full max-w-5xl p-6 my-8 overflow-hidden text-left h-full align-middle transition-all transform bg-white shadow-xl rounded-2xl`}>
@@ -74,7 +74,7 @@ export default function Modal({
                     <XIcon className="w-5 h-5" />
                   </button>
                 </div>
-              </div>
+              </dialog>
             </Transition.Child>
           </div>
         </Dialog>

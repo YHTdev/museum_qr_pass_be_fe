@@ -14,9 +14,9 @@ export const AdminData = {
     },
     {
       id: 2,
-      title: "Galleries",
-      icon: "PhotographIcon",
-      route: "/admin/galleries",
+      title: "Museum",
+      icon: "LibraryIcon",
+      route: "/admin/museums",
       subRoutes: [
         {
           title: "Record",
@@ -30,9 +30,9 @@ export const AdminData = {
     },
     {
       id: 3,
-      title: "Employee",
-      icon: "UserIcon",
-      route: "/employees/",
+      title: "Galleries",
+      icon: "PhotographIcon",
+      route: "/admin/galleries",
       subRoutes: [
         {
           title: "Employee Directory",
