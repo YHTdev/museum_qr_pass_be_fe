@@ -6,6 +6,14 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Museum {
+  id       String @id @default(uuid())
+  name     String
+  slug     String
+  location String
+  address  String
 }
