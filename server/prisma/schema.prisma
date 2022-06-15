@@ -30,3 +30,24 @@ model Gallery {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
+
+model Visitor {
+  id          String   @id @default(uuid())
+  name        String
+  phoneNumber String?
+  email       String?
+  nrc         String?
+  address     String?
+  // qr          QR?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}
+
+// model QR {
+//   id        String   @id @default(uuid())
+//   qr        String
+//   visitor   Visitor  @relation(fields: [visitorId], references: [id])
+//   visitorId String   @unique
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @default(now())
+// }
