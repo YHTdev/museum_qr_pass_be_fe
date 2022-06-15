@@ -6,6 +6,27 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Museum {
+  id        String    @id @default(uuid())
+  name      String
+  slug      String
+  location  String
+  address   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  Gallery   Gallery[]
+}
+
+model Gallery {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String
+  Museum    Museum   @relation(fields: [museumId], references: [id])
+  museumId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 }

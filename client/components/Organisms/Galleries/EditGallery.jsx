@@ -1,24 +1,28 @@
+import { useState } from "react";
 import slugify from "slugify";
 import apiCall from "../../../utils/apiCall";
-import UiInput from "../../Atoms/UiForms/UiInput";
 
-const CreateMuseum = ({
-  isModalOpen,
-  setIsModalOpen,
+const EditGallery = ({
+  museumLists,
   formData,
   setFormData,
+  isEditModalOpen,
+  setIsEditModalOpen,
 }) => {
-  const createMuseumHandler = async (e) => {
+  const editHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await apiCall.post("/museum/createMuseum", formData);
+      const res = await apiCall.put(
+        `/gallery/galleryLists/${formData.id}`,
+        formData
+      );
       if (res.status === 200) {
-        setIsModalOpen(false);
+        setIsEditModalOpen(false);
         console.log("success", res.data);
       }
     } catch (error) {
-      console.log("Museum Createion Error", error);
+      console.log("Gallery Createion Error", error);
     }
   };
   return (
@@ -28,10 +32,11 @@ const CreateMuseum = ({
           ** Please only fill with English **
         </h1>
         <div className="">
-          <label className="block mb-2 text-sm font-medium" htmlFor="name">
+          <label
+            className="block mb-2 text-sm font-medium"
+            htmlFor="galleryName">
             Name
           </label>
-
           <input
             type="text"
             name="name"
@@ -49,7 +54,9 @@ const CreateMuseum = ({
         </div>
 
         <div className="">
-          <label className="block mb-2 text-sm font-medium" htmlFor="slug">
+          <label
+            className="block mb-2 text-sm font-medium"
+            htmlFor="gallerySlug">
             Slug
           </label>
           <input
@@ -64,56 +71,37 @@ const CreateMuseum = ({
         </div>
 
         <div className="">
-          <label className="block mb-2 text-sm font-medium" htmlFor="location">
-            Location
+          <label className="block mb-2 text-sm font-medium" htmlFor="museumId">
+            Museum
           </label>
           <select
-            name="location"
-            id="location"
+            name="museumId"
+            id="museumId"
             className="w-full form-select"
-            value={formData.location}
+            value={formData.museumId}
             onChange={(e) => {
               setFormData({
                 ...formData,
                 [e.target.name]: e.target.value,
               });
             }}>
-            <option value="" selected>
-              --- Select Location ---
-            </option>
-            <option value="Yangon">Yangon</option>
-            <option value="Mandalay">Mandalay</option>
-            <option value="NayPyiTaw">Nay Pyi Taw</option>
+            {museumLists.map((museum, i) => (
+              <option key={i} value={museum.id}>
+                {museum.name}
+              </option>
+            ))}
           </select>
-        </div>
-
-        <div className="">
-          <label className="block mb-2 text-sm font-medium" htmlFor="address">
-            Address
-          </label>
-          <textarea
-            name="address"
-            id="address"
-            className="w-full form-textarea"
-            value={formData.address}
-            onChange={(e) => {
-              setFormData({
-                ...formData,
-                [e.target.name]: e.target.value,
-              });
-            }}
-          />
         </div>
       </div>
       <div className="flex items-center justify-end mt-5 space-x-5">
         <button
-          onClick={createMuseumHandler}
+          onClick={editHandler}
           className="py-2 bg-yellow-500 rounded-lg shadow-lg px-7 text-slate-200">
-          Add
+          Update
         </button>
       </div>
     </>
   );
 };
 
-export default CreateMuseum;
+export default EditGallery;

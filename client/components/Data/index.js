@@ -15,8 +15,8 @@ export const AdminData = {
     {
       id: 2,
       title: "Museum",
-      icon: "UserIcon",
-      route: "/employees/",
+      icon: "LibraryIcon",
+      route: "/admin/museums",
       subRoutes: [
         {
           title: "Record",

@@ -1,17 +1,26 @@
 import { useState } from "react";
 import slugify from "slugify";
+import apiCall from "../../../utils/apiCall";
 
-const CreateGallery = () => {
-  const [formData, setFormData] = useState({
-    galleryName: "",
-    gallerySlug: "",
-    museumLocation: "",
-  });
-
-  const createGalleryHandler = (e) => {
+const CreateGallery = ({
+  museumLists,
+  formData,
+  setFormData,
+  isModalOpen,
+  setIsModalOpen,
+}) => {
+  const createGalleryHandler = async (e) => {
     e.preventDefault();
 
-    console.log("formData submit ==>", formData);
+    try {
+      const res = await apiCall.post("/gallery/createGallery", formData);
+      if (res.status === 200) {
+        setIsModalOpen(false);
+        console.log("success", res.data);
+      }
+    } catch (error) {
+      console.log("Gallery Createion Error", error);
+    }
   };
   return (
     <>
@@ -27,17 +36,15 @@ const CreateGallery = () => {
           </label>
           <input
             type="text"
-            name="galleryName"
-            id="galleryName"
+            name="name"
+            id="name"
             className="w-full form-input"
-            value={formData.galleryName}
+            value={formData.name}
             onChange={(e) => {
               setFormData({
                 ...formData,
                 [e.target.name]: e.target.value,
-                gallerySlug: slugify(e.target.value, {
-                  lower: true,
-                }),
+                slug: slugify(e.target.value, { lower: true }),
               });
             }}
           />
@@ -51,26 +58,24 @@ const CreateGallery = () => {
           </label>
           <input
             type="text"
-            name="gallerySlug"
-            id="gallerySlug"
+            name="slug"
+            id="slug"
             className="w-full form-input"
             disabled
             placeholder="Read Only!!"
-            value={formData.gallerySlug}
+            value={formData.slug}
           />
         </div>
 
         <div className="">
-          <label
-            className="block mb-2 text-sm font-medium"
-            htmlFor="museumLocation">
+          <label className="block mb-2 text-sm font-medium" htmlFor="museumId">
             Museum
           </label>
           <select
-            name="museumLocation"
-            id="museumLocation"
+            name="museumId"
+            id="museumId"
             className="w-full form-select"
-            value={formData.museumLocation}
+            value={formData.museumId}
             onChange={(e) => {
               setFormData({
                 ...formData,
@@ -78,9 +83,11 @@ const CreateGallery = () => {
               });
             }}>
             <option>--- Select Museum ---</option>
-            <option value="YangonMuseum">Yangon Museum</option>
-            <option value="MandalayMuseum">Mandalay Museum</option>
-            <option value="NayPyiTawMuseum">Nay Pyi Taw Museum</option>
+            {museumLists.map((museum, i) => (
+              <option key={i} value={museum.id}>
+                {museum.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
