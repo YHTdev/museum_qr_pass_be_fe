@@ -10,8 +10,10 @@ import Modal, {
   ModalTitle,
 } from "../../../components/Organisms/Modal";
 import CreateMuseum from "../../../components/Organisms/Museums/CreateMuseum";
+import MuseumLists from "../../../components/Organisms/Museums/MuseumLists";
+import apiCall from "../../../utils/apiCall";
 
-const Museums = () => {
+const Museums = ({ museumLists }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <AdminLayout>
@@ -29,17 +31,32 @@ const Museums = () => {
         </div>
       </AdminTitle>
       <AdminBody>
-        <div className="">Museum Data Lists</div>
+        <div className="">
+          <MuseumLists museumLists={museumLists} />
+        </div>
       </AdminBody>
 
       <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
         <ModalTitle>Add Museum </ModalTitle>
         <ModalBody>
-          <CreateMuseum />
+          <CreateMuseum
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          />
         </ModalBody>
       </Modal>
     </AdminLayout>
   );
 };
+export const getServerSideProps = async () => {
+  const res = await apiCall.get("/museum/museumLists");
+  const museumData = await res.data;
 
+  return {
+    props: {
+      museumLists: museumData.data,
+      revalidate: 10,
+    },
+  };
+};
 export default Museums;

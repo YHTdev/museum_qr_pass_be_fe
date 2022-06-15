@@ -1,18 +1,35 @@
 import { useState } from "react";
 import slugify from "slugify";
+import apiCall from "../../../utils/apiCall";
 
-const CreateMuseum = () => {
+const CreateMuseum = (isModalOpen, setIsModalOpen) => {
   const [formData, setFormData] = useState({
-    museumName: "",
-    museumSlug: "",
-    museumLocation: "",
-    museumAddress: "",
+    name: "",
+    slug: "",
+    location: "",
+    address: "",
   });
 
-  const createMuseumHandler = (e) => {
+  const createMuseumHandler = async (e) => {
     e.preventDefault();
 
     console.log("formData submit ==>", formData);
+
+    try {
+      const res = await apiCall.post("/museum/createMuseum", formData);
+      if (res.status === 200) {
+        setIsModalOpen(false);
+        setFormData({
+          name: "",
+          slug: "",
+          location: "",
+          address: "",
+        });
+        console.log("success", res.data);
+      }
+    } catch (error) {
+      console.log("Museum Createion Error", error);
+    }
   };
   return (
     <>
@@ -21,55 +38,49 @@ const CreateMuseum = () => {
           ** Please only fill with English **
         </h1>
         <div className="">
-          <label
-            className="block mb-2 text-sm font-medium"
-            htmlFor="museumName">
+          <label className="block mb-2 text-sm font-medium" htmlFor="name">
             Name
           </label>
           <input
             type="text"
-            name="museumName"
-            id="museumName"
+            name="name"
+            id="name"
             className="w-full form-input"
-            value={formData.museumName}
+            value={formData.name}
             onChange={(e) => {
               setFormData({
                 ...formData,
                 [e.target.name]: e.target.value,
-                museumSlug: slugify(e.target.value, { lower: true }),
+                slug: slugify(e.target.value, { lower: true }),
               });
             }}
           />
         </div>
 
         <div className="">
-          <label
-            className="block mb-2 text-sm font-medium"
-            htmlFor="museumSlug">
+          <label className="block mb-2 text-sm font-medium" htmlFor="slug">
             Slug
           </label>
           <input
             type="text"
-            name="museumSlug"
-            id="museumSlug"
+            name="slug"
+            id="slug"
             className="w-full form-input"
             disabled
             placeholder="Read Only!!"
-            value={formData.museumSlug}
+            value={formData.slug}
           />
         </div>
 
         <div className="">
-          <label
-            className="block mb-2 text-sm font-medium"
-            htmlFor="museumLocation">
+          <label className="block mb-2 text-sm font-medium" htmlFor="location">
             Location
           </label>
           <select
-            name="museumLocation"
-            id="museumLocation"
+            name="location"
+            id="location"
             className="w-full form-select"
-            value={formData.museumLocation}
+            value={formData.location}
             onChange={(e) => {
               setFormData({
                 ...formData,
@@ -86,16 +97,14 @@ const CreateMuseum = () => {
         </div>
 
         <div className="">
-          <label
-            className="block mb-2 text-sm font-medium"
-            htmlFor="museumAddress">
+          <label className="block mb-2 text-sm font-medium" htmlFor="address">
             Address
           </label>
           <textarea
-            name="museumAddress"
-            id="museumAddress"
+            name="address"
+            id="address"
             className="w-full form-textarea"
-            value={formData.museumAddress}
+            value={formData.address}
             onChange={(e) => {
               setFormData({
                 ...formData,
