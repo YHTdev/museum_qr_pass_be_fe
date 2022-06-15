@@ -1,21 +1,17 @@
 import slugify from "slugify";
 import apiCall from "../../../utils/apiCall";
-import UiInput from "../../Atoms/UiForms/UiInput";
 
-const CreateMuseum = ({
-  isModalOpen,
-  setIsModalOpen,
-  formData,
-  setFormData,
-}) => {
-  const createMuseumHandler = async (e) => {
+const EditMuseum = ({ isModalOpen, setIsModalOpen, formData, setFormData }) => {
+  const editHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await apiCall.post("/museum/createMuseum", formData);
+      const res = await apiCall.put(
+        `/museum/museumLists/${formData.id}`,
+        formData
+      );
       if (res.status === 200) {
         setIsModalOpen(false);
-        console.log("success", res.data);
       }
     } catch (error) {
       console.log("Museum Createion Error", error);
@@ -31,7 +27,6 @@ const CreateMuseum = ({
           <label className="block mb-2 text-sm font-medium" htmlFor="name">
             Name
           </label>
-
           <input
             type="text"
             name="name"
@@ -107,13 +102,13 @@ const CreateMuseum = ({
       </div>
       <div className="flex items-center justify-end mt-5 space-x-5">
         <button
-          onClick={createMuseumHandler}
+          onClick={editHandler}
           className="py-2 bg-yellow-500 rounded-lg shadow-lg px-7 text-slate-200">
-          Add
+          Update
         </button>
       </div>
     </>
   );
 };
 
-export default CreateMuseum;
+export default EditMuseum;

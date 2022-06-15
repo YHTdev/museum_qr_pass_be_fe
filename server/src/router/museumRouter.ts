@@ -1,6 +1,11 @@
 import { Router } from "express";
 import { body } from "express-validator";
-import { createMuseum, MuseumLists } from "../controllers/museumController";
+import {
+  createMuseum,
+  deleteMuseum,
+  MuseumLists,
+  updateMuseum,
+} from "../controllers/museumController";
 
 export const museumRouter = Router();
 
@@ -16,3 +21,5 @@ museumRouter.post(
 );
 
 museumRouter.get("/museumLists", MuseumLists);
+museumRouter.put("/museumLists/:id", updateMuseum);
+museumRouter.post("/museumLists/:id", deleteMuseum);
