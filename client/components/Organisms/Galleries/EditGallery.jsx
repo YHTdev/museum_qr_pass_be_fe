@@ -2,20 +2,23 @@ import { useState } from "react";
 import slugify from "slugify";
 import apiCall from "../../../utils/apiCall";
 
-const CreateGallery = ({
+const EditGallery = ({
   museumLists,
   formData,
   setFormData,
-  isModalOpen,
-  setIsModalOpen,
+  isEditModalOpen,
+  setIsEditModalOpen,
 }) => {
-  const createGalleryHandler = async (e) => {
+  const editHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await apiCall.post("/gallery/createGallery", formData);
+      const res = await apiCall.put(
+        `/gallery/galleryLists/${formData.id}`,
+        formData
+      );
       if (res.status === 200) {
-        setIsModalOpen(false);
+        setIsEditModalOpen(false);
         console.log("success", res.data);
       }
     } catch (error) {
@@ -82,7 +85,6 @@ const CreateGallery = ({
                 [e.target.name]: e.target.value,
               });
             }}>
-            <option>--- Select Museum ---</option>
             {museumLists.map((museum, i) => (
               <option key={i} value={museum.id}>
                 {museum.name}
@@ -93,13 +95,13 @@ const CreateGallery = ({
       </div>
       <div className="flex items-center justify-end mt-5 space-x-5">
         <button
-          onClick={createGalleryHandler}
+          onClick={editHandler}
           className="py-2 bg-yellow-500 rounded-lg shadow-lg px-7 text-slate-200">
-          Add
+          Update
         </button>
       </div>
     </>
   );
 };
 
-export default CreateGallery;
+export default EditGallery;
