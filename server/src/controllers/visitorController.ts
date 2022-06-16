@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { generateQr } from "../helpers";
 import prisma from "../lib/prisma";
 
 export const createVisitor = async (
@@ -17,10 +18,30 @@ export const createVisitor = async (
       },
     });
     if (visitor) {
-      res.status(200).json({
-        statusCode: 200,
-        message: `Success`,
+      const findId: any = await prisma.visitor.findFirst({
+        where: {
+          id: req.params.id,
+        },
+        select: {
+          id: true,
+        },
       });
+      const qrCode = await generateQr(findId.id);
+
+      const createQr = await prisma.visitor.update({
+        where: {
+          id: findId.id,
+        },
+        data: {
+          qrSVG: qrCode,
+        },
+      });
+      if (createQr) {
+        res.status(200).json({
+          statusCode: 200,
+          message: `Success`,
+        });
+      }
     } else {
       res.status(422).json({
         statusCode: 422,
@@ -28,6 +49,8 @@ export const createVisitor = async (
       });
     }
   } catch (error) {
+    console.log("ERROR __>", error);
+
     next(error);
   }
 };
