@@ -6,7 +6,7 @@ const Iconx = ({ icon, className }) => {
   return (
     <>
       <TheIcon
-        className={className ? `${className}` : " w-5 h-5"}
+        className={className ? `${className}` : " w-7 h-7 shrink-0"}
         aria-hidden="true"
       />
     </>
