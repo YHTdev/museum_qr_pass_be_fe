@@ -41,14 +41,33 @@ export const AdminData = {
       ],
     },
     {
-      id: 3,
+      id: 4,
       title: "visitors",
       icon: "UserIcon",
       route: "/admin/visitors",
       subRoutes: [
         {
-          title: "Employee Directory",
-          route: "/employees/",
+          title: "Visitors",
+          route: "/admin/visitors",
+        },
+      ],
+    },
+  ],
+  AdminActionRoutes: [
+    {
+      id: 1,
+      title: "Settings",
+      route: "/admin/settings",
+      subRoutes: [
+        {
+          id: 1,
+          title: "Site Settings",
+          route: "/admin/settings/siteSettings",
+        },
+        {
+          id: 2,
+          title: "Museum Settings",
+          route: "/admin/settings/museumSettings",
         },
       ],
     },

@@ -11,7 +11,7 @@ const AccountAction = ({
 }) => {
   return (
     <div
-      className="relative inline-block text-left"
+      className="relative z-30 inline-block text-left"
       //   onMouseEnter={onMouseEnter}
       //       onMouseLeave={onMouseLeave}
     >
@@ -46,7 +46,7 @@ const AccountAction = ({
         </div>
         <div className="p-2 group">
           <div>
-            <Link href="/settings/company">
+            <Link href="/admin/settings/siteSettings">
               <a>
                 <div className="flex items-center space-x-2 group text-slate-600 group-hover:text-yellow-500">
                   {/* <GearIcon className={`w-6 h-6`} /> */}

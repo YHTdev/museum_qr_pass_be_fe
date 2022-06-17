@@ -28,11 +28,11 @@ const ViewQr = ({ viewQrData }) => {
 
   return (
     <>
-      <div ref={componentRef} className="w-56 mx-auto border-2">
+      <div ref={componentRef} className="w-48 mx-auto ">
         <style type="text/css" media="print">
           {pageStyle}
         </style>
-        <div className="w-56 h-36 ">
+        <div className="w-40 h-40 ">
           <div className="">
             {/* <div className="w-56 h-36"> */}
             <img src={viewQrData.qrSVG} alt="svg" />

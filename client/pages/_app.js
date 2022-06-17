@@ -1,10 +1,13 @@
 import AdminLayout from "../components/Templates/AdminLayout";
+import { AppWrapper } from "../context/appContext";
 import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps }) {
   return (
     // <AdminLayout>
-    <Component {...pageProps} />
+    <AppWrapper>
+      <Component {...pageProps} />
+    </AppWrapper>
     // </AdminLayout>
   );
 }
