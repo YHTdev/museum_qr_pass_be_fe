@@ -8,8 +8,8 @@ const ViewQr = ({ viewQrData }) => {
   });
   const pageStyle = `
   @page {
-    size: 30mm 30mm;
-    // margin: 20mm;
+    size: 60mm 20mm;
+    // margin: 1mm;
   }
 
   @media all {
@@ -28,16 +28,19 @@ const ViewQr = ({ viewQrData }) => {
 
   return (
     <>
-      <div ref={componentRef} className="w-48 mx-auto ">
+      <div ref={componentRef} className="w-56 mx-auto border-2">
         <style type="text/css" media="print">
           {pageStyle}
         </style>
-        <div className="w-40 h-40 ">
-          <img src={viewQrData.qrSVG} alt="svg" />
-        </div>
-        <div className="mt-2 ">
-          <p className="">{viewQrData.name}</p>
-          <p className="">{viewQrData.phoneNumber}</p>
+        <div className="w-56 h-36 ">
+          <div className="">
+            {/* <div className="w-56 h-36"> */}
+            <img src={viewQrData.qrSVG} alt="svg" />
+          </div>
+          <div className="mt-2 ">
+            <p className="">{viewQrData.name}</p>
+            <p className="">{viewQrData.phoneNumber}</p>
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-end mt-5 space-x-5">
