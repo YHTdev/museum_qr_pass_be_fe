@@ -5,14 +5,22 @@ import YoonHanTharLogoOnly from "../../../public/assets/images/logo/YoonHanTharL
 import { AdminData } from "../../Data";
 import { useRouter } from "next/router";
 import { SidebarRoutesContext } from "../../Templates/AdminLayout";
+import PeopleCircleIcon from "../../Atoms/Icons/peopleCircle";
+import { useState } from "react";
+import AccountAction from "./AccountAction";
 
 const Sidebar = ({}) => {
-  const n = 10; // Or something else
+  const [isButtonHover, setIsButtonHover] = useState(false);
   const sidebarLinksData = AdminData.SidebarRoutes;
   const router = useRouter();
-  // console.log("sidebarLinksData ===>", sidebarLinksData);
-  // console.log("Current Route ===>", router);
   const res = SidebarRoutesContext;
+
+  const accountButtonhandler = () => {
+    setIsButtonHover(!isButtonHover);
+  };
+  const mouseLeavehandler = () => {
+    setIsButtonHover(!isButtonHover);
+  };
 
   return (
     <div className="flex flex-col flex-none w-20 bg-slate-200">
@@ -21,24 +29,32 @@ const Sidebar = ({}) => {
       </div>
 
       <div className="flex-auto overflow-y-auto no-scrollbar">
-        <div className="flex flex-col mx-auto ">
-          {sidebarLinksData.map((sidebarLink, i) => (
-            <Link key={i} href={sidebarLink.route}>
-              <a
-                // onClick={() => setIndex(sidebarLink.id)}
-                className={`block py-2 hover:bg-slate-50 ${
-                  router.pathname === sidebarLink.route ? " bg-slate-50 " : ""
-                }`}>
-                <div className="flex items-center justify-center ">
-                  <Iconx
-                    icon={sidebarLink.icon}
-                    className={`w-7 h-7 shrink-0`}
-                  />
-                </div>
-              </a>
-            </Link>
-          ))}
+        <div className="">
+          <div className="flex flex-col mx-auto ">
+            {sidebarLinksData.map((sidebarLink, i) => (
+              <Link key={i} href={sidebarLink.route}>
+                <a
+                  // onClick={() => setIndex(sidebarLink.id)}
+                  className={`block py-2  hover:text-yellow-500 text-slate-600 ${
+                    router.pathname === sidebarLink.route
+                      ? " bg-slate-50 text-yellow-500"
+                      : ""
+                  }`}>
+                  <div className="flex items-center justify-center ">
+                    <Iconx icon={sidebarLink.icon} />
+                  </div>
+                </a>
+              </Link>
+            ))}
+          </div>
         </div>
+      </div>
+      <div className="flex flex-col items-center justify-center py-6 ">
+        <AccountAction
+          onMouseEnter={accountButtonhandler}
+          // onMouseLeave={mouseLeavehandler}
+          isButtonHover={isButtonHover}
+        />
       </div>
     </div>
   );

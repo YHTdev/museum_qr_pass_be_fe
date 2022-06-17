@@ -69,6 +69,7 @@ export const visitorLists = async (
         email: true,
         nrc: true,
         address: true,
+        qrSVG: true,
         updatedAt: true,
         createdAt: true,
       },

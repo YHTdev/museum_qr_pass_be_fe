@@ -11,7 +11,7 @@ export const generateQr = async (id: string) => {
     titleColor: "#004284",
   });
 
-  const SVGText = await qr.toSVGText();
+  const SVGText = await qr.toDataURL();
 
   return SVGText;
 };

@@ -11,13 +11,17 @@ import Modal, {
 } from "../../../components/Organisms/Modal";
 import CreateVisitor from "../../../components/Organisms/Visitors/CreateVisitor";
 import VisitorLists from "../../../components/Organisms/Visitors/VisitorLists";
-import apiCall from "../../../utils/apiCall";
+import ViewQr from "../../../components/Organisms/Visitors/viewQr";
+import { getVisitors } from "../../../utils/apiRoutes";
+import ViewVisitor from "../../../components/Organisms/Visitors/viewVisitor";
 
+// const Visitors = () => {
 const Visitors = ({ visitorLists }) => {
   // MODEL CONTROL
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [viewQrModelopen, setViewQrModelopen] = useState(false);
+  const [viewVisitorModelOpen, setViewVisitorModelOpen] = useState(false);
 
   // FORM DATA CONTROL
   const [formData, setFormData] = useState({
@@ -28,23 +32,57 @@ const Visitors = ({ visitorLists }) => {
     address: "",
     citizinship: "",
   });
+  console.log("formData on test -->", formData);
+
+  const [viewQrData, setViewQrData] = useState({
+    id: "",
+    name: "",
+    qrSVG: "",
+    phoneNumber: "",
+  });
 
   const [isLocal, setIsLocal] = useState(true);
 
-  // const clearFormData = () => {
-  //   setFormData({
-  //     name: "",
-  //     phoneNumber: "",
-  //     email: "",
-  //     nrc: "",
-  //     address: "",
-  //   });
-  // };
+  const clearFormData = () => {
+    setFormData({
+      name: "",
+      phoneNumber: "",
+      email: "",
+      nrc: "",
+      address: "",
+      citizinship: "",
+    });
+  };
 
   const openCreateModal = () => {
     setIsCreateModalOpen(!isCreateModalOpen);
-    // clearFormData();
+    clearFormData();
   };
+
+  const viewQrHandler = (id, visitor) => {
+    setViewQrModelopen(!viewQrModelopen);
+    setViewQrData({
+      id: id,
+      name: visitor.name,
+      qrSVG: visitor.qrSVG,
+      phoneNumber: visitor.phoneNumber,
+    });
+  };
+
+  const viewVisitorHandler = (id, visitor) => {
+    setViewVisitorModelOpen(!viewVisitorModelOpen);
+    setFormData({
+      id: id,
+      name: visitor.name,
+      phoneNumber: visitor.phoneNumber,
+      email: visitor.email,
+      nrc: visitor.nrc,
+      address: visitor.address,
+      citizinship: visitor.citizinship,
+      qrSVG: visitor.qrSVG,
+    });
+  };
+
   return (
     <>
       <AdminLayout>
@@ -63,7 +101,11 @@ const Visitors = ({ visitorLists }) => {
         </AdminTitle>
         <AdminBody>
           <div className="">
-            <VisitorLists visitorLists={visitorLists} />
+            <VisitorLists
+              visitorLists={visitorLists}
+              viewQr={viewQrHandler}
+              viewVisitor={viewVisitorHandler}
+            />
           </div>
         </AdminBody>
 
@@ -82,18 +124,37 @@ const Visitors = ({ visitorLists }) => {
             />
           </ModalBody>
         </Modal>
+
+        <Modal
+          isModalOpen={viewQrModelopen}
+          setIsModalOpen={setViewQrModelopen}>
+          <ModalBody>
+            <ViewQr
+              viewQrModelopen={viewQrModelopen}
+              setViewQrModelopen={setViewQrModelopen}
+              viewQrData={viewQrData}
+            />
+          </ModalBody>
+        </Modal>
+
+        <Modal
+          isModalOpen={viewVisitorModelOpen}
+          setIsModalOpen={setViewVisitorModelOpen}>
+          <ModalBody>
+            <ViewVisitor singleVisitor={formData} />
+          </ModalBody>
+        </Modal>
       </AdminLayout>
     </>
   );
 };
 
 export const getServerSideProps = async () => {
-  const res = await apiCall.get("/visitor/visitorLists");
-  const visitorData = await res.data;
+  const visitorData = await getVisitors();
 
   return {
     props: {
-      visitorLists: visitorData.data,
+      visitorLists: visitorData,
       revalidate: 10,
     },
   };
