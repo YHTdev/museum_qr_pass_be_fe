@@ -9,7 +9,6 @@ const SubSidebar = ({ isSubSidebarOpen }) => {
   const filteredRoutes = adminRoutes.find(
     (route) => route.id === adminRouteIndex
   );
-  console.log("filterRoute ->", filteredRoutes);
 
   const subRoutes = filteredRoutes.subRoutes.map((routes) => {
     const title = routes.title;
@@ -17,11 +16,9 @@ const SubSidebar = ({ isSubSidebarOpen }) => {
     return title, route;
   });
 
-  console.log("subRoutes ==>", subRoutes);
-
   return (
     <>
-      {router.pathname === `${filteredRoutes.route}` ? (
+      {router.pathname.startsWith + `${filteredRoutes.route}` ? (
         <div
           className={`flex flex-col flex-none w-48 bg-slate-50 transform transition-all duration-500 ease-in-out ${
             isSubSidebarOpen ? `w-0` : ``
@@ -44,43 +41,9 @@ const SubSidebar = ({ isSubSidebarOpen }) => {
             ))}
           </div>
         </div>
-      ) : (
-        <div
-          className={`flex flex-col flex-none w-48 bg-slate-50 transform transition-all duration-500 ease-in-out ${
-            isSubSidebarOpen ? `w-0` : ``
-          }`}>
-          <div className="p-5">
-            <h1 className="text-lg leading-loose tracking-wide text-slate-900">
-              Settings
-            </h1>
-          </div>
+      ) : null}
 
-          <div className="flex-auto px-5 overflow-y-auto no-scrollbar">
-            <Link href="/admin/settings/siteSettings">
-              <a
-                className={`block py-2  hover:text-yellow-500 text-slate-600 ${
-                  router.pathname === "/admin/settings/siteSettings"
-                    ? "  text-yellow-500"
-                    : ""
-                }`}>
-                <div className="flex items-center ">SiteSettings</div>
-              </a>
-            </Link>
-            <Link href="/admin/settings/museumSettings">
-              <a
-                className={`block py-2  hover:text-yellow-500 text-slate-600 ${
-                  router.pathname === "/admin/settings/museumSettings"
-                    ? "  text-yellow-500"
-                    : ""
-                }`}>
-                <div className="flex items-center ">Museum Settings</div>
-              </a>
-            </Link>
-          </div>
-        </div>
-      )}
-
-      {/* {router.pathname.startsWith`/admin/settings` ? (
+      {/* {router.pathname.startsWith + `/admin/settings` ? (
         <div
           className={`flex flex-col flex-none w-48 bg-slate-50 transform transition-all duration-500 ease-in-out ${
             isSubSidebarOpen ? `w-0` : ``
@@ -115,6 +78,40 @@ const SubSidebar = ({ isSubSidebarOpen }) => {
           </div>
         </div>
       ) : null} */}
+
+      {/* <div
+        className={`flex flex-col flex-none w-48 bg-slate-50 transform transition-all duration-500 ease-in-out ${
+          isSubSidebarOpen ? `w-0` : ``
+        }`}>
+        <div className="p-5">
+          <h1 className="text-lg leading-loose tracking-wide text-slate-900">
+            Settings
+          </h1>
+        </div>
+
+        <div className="flex-auto px-5 overflow-y-auto no-scrollbar">
+          <Link href="/admin/settings/siteSettings">
+            <a
+              className={`block py-2  hover:text-yellow-500 text-slate-600 ${
+                router.pathname === "/admin/settings/siteSettings"
+                  ? "  text-yellow-500"
+                  : ""
+              }`}>
+              <div className="flex items-center ">SiteSettings</div>
+            </a>
+          </Link>
+          <Link href="/admin/settings/museumSettings">
+            <a
+              className={`block py-2  hover:text-yellow-500 text-slate-600 ${
+                router.pathname === "/admin/settings/museumSettings"
+                  ? "  text-yellow-500"
+                  : ""
+              }`}>
+              <div className="flex items-center ">Museum Settings</div>
+            </a>
+          </Link>
+        </div>
+      </div> */}
     </>
   );
 };

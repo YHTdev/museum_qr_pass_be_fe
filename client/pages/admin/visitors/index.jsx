@@ -32,7 +32,6 @@ const Visitors = ({ visitorLists }) => {
     address: "",
     citizinship: "",
   });
-  console.log("formData on test -->", formData);
 
   const [viewQrData, setViewQrData] = useState({
     id: "",

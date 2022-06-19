@@ -15,7 +15,15 @@ export const useAppContext = () => {
 export const AppWrapper = ({ children }) => {
   const adminRoutes = getAdminRoutes();
   const [adminRouteIndex, setAdminRouteIndex] = useState(1);
+  const [authenticatedUser, setAuthenticatedUser] = useState({});
 
-  const state = { adminRoutes, adminRouteIndex, setAdminRouteIndex };
+  const state = {
+    adminRoutes,
+    adminRouteIndex,
+    setAdminRouteIndex,
+    authenticatedUser,
+    setAuthenticatedUser,
+  };
+  console.log("authenticatedUser ->", authenticatedUser);
   return <AppContext.Provider value={state}>{children}</AppContext.Provider>;
 };

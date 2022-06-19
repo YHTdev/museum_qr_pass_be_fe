@@ -43,12 +43,28 @@ export const AdminData = {
     {
       id: 4,
       title: "visitors",
-      icon: "UserIcon",
+      icon: "UserGroupIcon",
       route: "/admin/visitors",
       subRoutes: [
         {
           title: "Visitors",
           route: "/admin/visitors",
+        },
+      ],
+    },
+    {
+      id: 5,
+      title: "Users",
+      icon: "UserIcon",
+      route: "/admin/user",
+      subRoutes: [
+        {
+          title: "user Directory",
+          route: "/admin/user",
+        },
+        {
+          title: "Create",
+          route: "/admin/user/create",
         },
       ],
     },
