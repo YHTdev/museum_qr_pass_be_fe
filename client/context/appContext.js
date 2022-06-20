@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { getAdminRoutes } from "../utils/apiRoutes";
+import { getAdminRoutes, getCookie, getDecodedToken } from "../utils/apiRoutes";
 
 const AppContext = createContext();
 
@@ -15,15 +15,14 @@ export const useAppContext = () => {
 export const AppWrapper = ({ children }) => {
   const adminRoutes = getAdminRoutes();
   const [adminRouteIndex, setAdminRouteIndex] = useState(1);
-  const [authenticatedUser, setAuthenticatedUser] = useState({});
 
   const state = {
     adminRoutes,
     adminRouteIndex,
     setAdminRouteIndex,
-    authenticatedUser,
-    setAuthenticatedUser,
   };
-  console.log("authenticatedUser ->", authenticatedUser);
+
+  // console.log("data on context ->", data);
+
   return <AppContext.Provider value={state}>{children}</AppContext.Provider>;
 };

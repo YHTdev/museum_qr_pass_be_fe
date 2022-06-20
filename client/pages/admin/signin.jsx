@@ -5,13 +5,11 @@ import YoonHanTharLogoOnly from "../../public/assets/images/logo/YoonHanTharLogo
 import { signin } from "../../utils/apiRoutes";
 
 const Signin = ({ csrfToken }) => {
-  const { setAuthenticatedUser } = useAppContext();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const signinHandler = async (e) => {
     e.preventDefault();
     try {
-      const user = await signin(formData);
-      setAuthenticatedUser(user);
+      await signin(formData);
     } catch (error) {
       console.log("Signin Error ->", error);
     }
