@@ -9,6 +9,9 @@
     "watch": "tsc -w",
     "setup": "tsc --init"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

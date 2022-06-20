@@ -1,6 +1,5 @@
 import Link from "next/link";
-import GearIcon from "../../Atoms/Icons/GearIcon";
-import Iconx from "../../Atoms/Icons/iconx";
+import { signOut } from "../../../utils/apiRoutes";
 import PeopleCircleIcon from "../../Atoms/Icons/peopleCircle";
 
 const AccountAction = ({
@@ -11,7 +10,7 @@ const AccountAction = ({
 }) => {
   return (
     <div
-      className="relative inline-block text-left"
+      className="relative z-30 inline-block text-left"
       //   onMouseEnter={onMouseEnter}
       //       onMouseLeave={onMouseLeave}
     >
@@ -37,8 +36,12 @@ const AccountAction = ({
               <div className="flex items-center space-x-2 group text-slate-600 group-hover:text-yellow-500">
                 <PeopleCircleIcon className={`w-6 h-6`} />
                 <div className="">
-                  <p>Arkar Phyo</p>
-                  <p className="text-xs ">session.user.email</p>
+                  {/* <p>name</p>
+                  <p className="text-xs ">data.email</p> */}
+                  <p>Name</p>
+                  <p className="text-xs ">Email</p>
+                  {/* <p>{data.name}</p>
+                  <p className="text-xs ">{data.email}</p> */}
                 </div>
               </div>
             </a>
@@ -46,10 +49,9 @@ const AccountAction = ({
         </div>
         <div className="p-2 group">
           <div>
-            <Link href="/settings/company">
+            <Link href="/admin/settings/siteSettings">
               <a>
                 <div className="flex items-center space-x-2 group text-slate-600 group-hover:text-yellow-500">
-                  {/* <GearIcon className={`w-6 h-6`} /> */}
                   <p>Settings</p>
                 </div>
               </a>
@@ -57,16 +59,11 @@ const AccountAction = ({
           </div>
         </div>
         <div className="p-2 group">
-          <div>
-            <Link href="/settings/company">
-              <a>
-                <div className="flex items-center space-x-2 group text-slate-600 group-hover:text-yellow-500">
-                  {/* <Iconx icon={`LogoutIcon`} className={`w-6 h-6`} /> */}
-                  <p>Logout</p>
-                </div>
-              </a>
-            </Link>
-          </div>
+          <button onClick={() => signOut()}>
+            <div className="flex items-center space-x-2 group text-slate-600 group-hover:text-yellow-500">
+              <p>SignOut</p>
+            </div>
+          </button>
         </div>
       </div>
     </div>

@@ -50,3 +50,20 @@ enum Citizinship {
   isForeign
   isLocal
 }
+
+model User {
+  id          String    @id @default(uuid())
+  name        String
+  email       String    @unique
+  phoneNumber String    @unique
+  password    String
+  userTypes   UserTypes @default(admin)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+}
+
+enum UserTypes {
+  super_admin
+  admin
+  scanner
+}

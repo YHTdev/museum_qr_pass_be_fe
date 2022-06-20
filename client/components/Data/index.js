@@ -41,14 +41,49 @@ export const AdminData = {
       ],
     },
     {
-      id: 3,
+      id: 4,
       title: "visitors",
-      icon: "UserIcon",
+      icon: "UserGroupIcon",
       route: "/admin/visitors",
       subRoutes: [
         {
-          title: "Employee Directory",
-          route: "/employees/",
+          title: "Visitors",
+          route: "/admin/visitors",
+        },
+      ],
+    },
+    {
+      id: 5,
+      title: "Users",
+      icon: "UserIcon",
+      route: "/admin/user",
+      subRoutes: [
+        {
+          title: "user Directory",
+          route: "/admin/user",
+        },
+        {
+          title: "Create",
+          route: "/admin/user/create",
+        },
+      ],
+    },
+  ],
+  AdminActionRoutes: [
+    {
+      id: 1,
+      title: "Settings",
+      route: "/admin/settings",
+      subRoutes: [
+        {
+          id: 1,
+          title: "Site Settings",
+          route: "/admin/settings/siteSettings",
+        },
+        {
+          id: 2,
+          title: "Museum Settings",
+          route: "/admin/settings/museumSettings",
         },
       ],
     },
